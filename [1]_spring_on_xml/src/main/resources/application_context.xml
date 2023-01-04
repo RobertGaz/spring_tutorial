@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="testBean" class="hello_world.TestBean">
+        <constructor-arg value="Robert"/>
+    </bean>
+    
+    <bean id="classicalMusicBean" class="orlanda.ClassicalMusic"/>
+    <bean id="rockMusicBean" class="orlanda.RockMusic"/>
+    
+    <bean id="playerBean" class="orlanda.MusicPlayer" init-method="turnOn" destroy-method="turnOff">
+    	<constructor-arg ref="classicalMusicBean"/>
+    	<property name="music" ref="rockMusicBean"/>
+    	<property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+    
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+	
+</beans>
